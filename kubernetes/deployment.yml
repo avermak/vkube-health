@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vkube-health-deployment
+spec:
+  selector:
+    matchLabels:
+      app: vkube-health
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: vkube-health
+    spec:
+      containers:
+        - name: vkube-health
+          image: avermak/vkube-health:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 22100
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
