@@ -40,7 +40,7 @@ public class OSUtil {
                 return Integer.parseInt(cpustr.trim())/1000.0;
             }
         } catch (Exception ex) {
-            System.out.println("Error getting CPU count. " + ex);
+            System.out.println("Error getting CPU temperature. " + ex);
             ex.printStackTrace();
         }
         return -1.0;
