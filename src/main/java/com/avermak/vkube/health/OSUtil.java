@@ -34,16 +34,18 @@ public class OSUtil {
         }
     }
     public static double getCPUTemperature() {
+        BufferedReader br = null;
         try {
             if (isLinuxOS()) {
-                BufferedReader br = new BufferedReader(new FileReader("./thermal/temp"));
+                br = new BufferedReader(new FileReader("./thermal/temp"));
                 String tempC = br.readLine();
-//                String cpustr = runOSCommandAndGetOutput(new String[]{"cat", "./thermal/temp"});
                 return Integer.parseInt(tempC.trim())/1000.0;
             }
         } catch (Exception ex) {
             System.out.println("Error getting CPU temperature. " + ex);
             //ex.printStackTrace();
+        } finally {
+            if (br != null) try {br.close();} catch(Exception ex) {}
         }
         return 0.0;
     }
