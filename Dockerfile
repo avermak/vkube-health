@@ -8,4 +8,6 @@ EXPOSE 22100
 
 WORKDIR "/app/api/vkube-health"
 
+RUN mkdir -p /app/api/vkube-health/thermal
+
 CMD ["java", "-jar", "vkube-health-1.0-SNAPSHOT-all.jar"]

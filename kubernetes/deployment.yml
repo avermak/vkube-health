@@ -30,3 +30,11 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
+          volumeMounts:
+            - name: thermal
+              mountPath: /app/api/vkube-health/thermal
+              readonly: true
+          volumes:
+            - name: thermal
+              hostPath:
+                path: /sys/class/thermal

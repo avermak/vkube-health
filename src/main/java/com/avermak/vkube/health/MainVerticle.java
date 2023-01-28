@@ -94,7 +94,7 @@ public class MainVerticle extends AbstractVerticle {
         this.serverInfo.setCPUTemperatures(new double[] {OSUtil.getCPUTemperature()});
         Object[] cpuMem = OSUtil.getCPUAndMemoryUsage();
         this.serverInfo.setCPUUsage((double[])cpuMem[0]);
-        this.serverInfo.setTotalMemory(((int[])cpuMem[1])[0] + ((int[])cpuMem[1])[1]);
+        this.serverInfo.setTotalMemory(((int[])cpuMem[1])[0]);
         this.serverInfo.setFreeMemory(((int[])cpuMem[1])[1]);
         return this.serverInfo;
     }
