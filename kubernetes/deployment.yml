@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: vkube-health
-  replicas: 4
+  replicas: 2
   template:
     metadata:
       labels:
@@ -33,8 +33,7 @@ spec:
           volumeMounts:
             - name: thermal
               mountPath: /app/api/vkube-health/thermal
-              readonly: true
-          volumes:
-            - name: thermal
-              hostPath:
-                path: /sys/class/thermal
+      volumes:
+        - name: thermal
+          hostPath:
+            path: /sys/class/thermal/thermal_zone0
