@@ -36,8 +36,10 @@ public class OSUtil {
     public static double getCPUTemperature() {
         try {
             if (isLinuxOS()) {
-                String cpustr = runOSCommandAndGetOutput(new String[]{"cat", "/sys/class/thermal/thermal_zone0/temp"});
-                return Integer.parseInt(cpustr.trim())/1000.0;
+                BufferedReader br = new BufferedReader(new FileReader("./thermal/temp"));
+                String tempC = br.readLine();
+//                String cpustr = runOSCommandAndGetOutput(new String[]{"cat", "./thermal/temp"});
+                return Integer.parseInt(tempC.trim())/1000.0;
             }
         } catch (Exception ex) {
             System.out.println("Error getting CPU temperature. " + ex);
