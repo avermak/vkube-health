@@ -31,6 +31,7 @@ public class MainVerticle extends AbstractVerticle {
 
         apiRoute.handler(ctx -> {
             System.out.println("Received request over http. " + ctx.request().absoluteURI());
+            ctx.response().putHeader("Access-Control-Allow-Origin", "*");
             ctx.response().end(buildResponse(ctx.request()));
         });
         System.out.println("API route configured at " + CONTEXT_PATH);
