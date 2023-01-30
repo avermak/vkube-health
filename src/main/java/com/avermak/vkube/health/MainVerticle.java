@@ -2,12 +2,14 @@ package com.avermak.vkube.health;
 
 import com.google.gson.Gson;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.CorsHandler;
 
 import java.net.InetAddress;
 
@@ -29,9 +31,14 @@ public class MainVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
         Route apiRoute = router.route().path(CONTEXT_PATH);
 
+        router.route().handler(CorsHandler.create()
+                .allowCredentials(true)
+                .allowedHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN.toString())
+        );
+
         apiRoute.handler(ctx -> {
-            System.out.println("Received request over http. " + ctx.request().absoluteURI());
-            ctx.response().putHeader("Access-Control-Allow-Origin", "*");
+            System.out.println("Received request over http [" + ctx.request().absoluteURI()+"]");
+            ctx.response().putHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN.toString(), "*");
             ctx.response().end(buildResponse(ctx.request()));
         });
         System.out.println("API route configured at " + CONTEXT_PATH);
